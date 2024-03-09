@@ -1,4 +1,5 @@
-import {Flex, Text } from "@radix-ui/themes";
+import { Flex, Text } from "@radix-ui/themes";
+import { ToastContainer, toast } from "react-toastify";
 import React from "react";
 import {
   useWeb3ModalAccount,
@@ -14,7 +15,7 @@ const VoteHandler = ({ proposals, loading }) => {
   const { walletProvider } = useWeb3ModalProvider();
 
   const handleVote = async (id) => {
-    if (!isSupportedChain(chainId)) return console.error("Wrong network");
+    if (!isSupportedChain(chainId)) return toast.error("Wrong network");
     const readWriteProvider = getProvider(walletProvider);
     const signer = await readWriteProvider.getSigner();
 
@@ -28,10 +29,10 @@ const VoteHandler = ({ proposals, loading }) => {
       console.log("receipt: ", receipt);
 
       if (receipt.status) {
-        return console.log("vote successful!");
+        return toast.success("vote successful!");
       }
 
-      console.log("vote failed!");
+      toast.error("vote failed!");
     } catch (error) {
       console.log(error);
       let errorText;
@@ -43,7 +44,7 @@ const VoteHandler = ({ proposals, loading }) => {
         errorText = "An unknown error occurred";
       }
 
-      console.error("error: ", errorText);
+      toast.error(errorText);
     }
   };
 

@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { isSupportedChain } from "../utils";
 import { isAddress } from "ethers";
 import { getProvider } from "../constants/providers";
@@ -13,8 +14,8 @@ const useDelegate = (address) => {
   const { walletProvider } = useWeb3ModalProvider();
 
   return useCallback(async () => {
-    if (!isSupportedChain(chainId)) return console.error("Wrong network");
-    if (!isAddress(address)) return console.error("Invalid address");
+    if (!isSupportedChain(chainId)) return toast.error("Wrong network");
+    if (!isAddress(address)) return toast.error("Invalid address");
     const readWriteProvider = getProvider(walletProvider);
     const signer = await readWriteProvider.getSigner();
 
@@ -28,10 +29,10 @@ const useDelegate = (address) => {
       console.log("receipt: ", receipt);
 
       if (receipt.status) {
-        return console.log("delegation successful!");
+        return toast.success("delegation successful!");
       }
 
-      console.log("delegation failed!");
+      toast.error("delegation failed!");
     } catch (error) {
       console.error("error: ", error);
     }
