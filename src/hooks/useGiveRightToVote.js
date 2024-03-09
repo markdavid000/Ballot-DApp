@@ -48,6 +48,14 @@ const useGiveRightToVote = (address) => {
       toast.error("giveRightToVote failed!");
     } catch (error) {
       console.error("error: ", error);
+      let errorText;
+      if (error.reason === "The voter already voted.") {
+        errorText = "Voter has already Voted";
+      } else if (error.reason === null) {
+        errorText = "Already Added";
+      }
+
+      toast.error(errorText);
     }
   }, [address, chainId, walletProvider]);
 };

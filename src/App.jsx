@@ -1,5 +1,5 @@
 import { Box, Container } from "@radix-ui/themes";
-import { ToastContainer, Flip } from "react-toastify";
+import { ToastContainer, Slide } from "react-toastify";
 import { configureWeb3Modal } from "./connection";
 import "@radix-ui/themes/styles.css";
 import Header from "./component/Header";
@@ -24,7 +24,7 @@ function App() {
       </main>
       <ToastContainer
         theme="colored"
-        transition={Flip}
+        transition={Slide}
         hideProgressBar={true}
       />
     </Container>
